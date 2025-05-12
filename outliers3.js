@@ -61,7 +61,8 @@ Runner.run(runner, engine);
 document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('world');
   const W = window.innerWidth - 20;
-  const H = Math.floor(window.innerHeight * 0.7);
+  const H = Math.floor(window.innerHeight * 1.2);
+  const Hbottom = Math.floor(window.innerHeight * 1.0);
   console.log(W)
   console.log(H)
   canvas.width = W-100;
@@ -199,17 +200,17 @@ Events.on(mouseConstraint, 'mousedown', (event) => {
 const boxWidth     = (W * 0.6) * 1.5;   // now 150% of 60% canvas width
 const boxHeight    = H * 0.3;
 const boxX         = (W - boxWidth) / 2;
-const boxY         = H * 0.1;
-const wallThk      = 10;
+const boxY         = H * 0.025;
+const wallThk      = 7;
 const holeW        = cutoff * scale * 2;
 const slopeAng     = Math.PI / 18;
 
 
 // Vertical & back walls
 World.add(world, [
-  Bodies.rectangle(boxX + wallThk/2,       boxY + boxHeight/2,           wallThk,          boxHeight, { isStatic: true, fillStyle:'#fff'}),
-  Bodies.rectangle(boxX + boxWidth - wallThk/2, boxY + boxHeight/2,       wallThk,          boxHeight, { isStatic: true, fillStyle:'#fff' }),
-  Bodies.rectangle(boxX + boxWidth/2,       boxY + wallThk/2,           boxWidth - 2*wallThk, wallThk, { isStatic: true , fillStyle:'#fff'})
+  Bodies.rectangle(boxX + wallThk/2,       boxY + boxHeight/2,           wallThk,          boxHeight, { isStatic: true, fillStyle:'#E69DB8'}),
+  Bodies.rectangle(boxX + boxWidth - wallThk/2, boxY + boxHeight/2,       wallThk,          boxHeight, { isStatic: true, fillStyle:'#E69DB8' }),
+  Bodies.rectangle(boxX + boxWidth/2,       boxY + wallThk/2,           boxWidth - 2*wallThk, wallThk, { isStatic: true , fillStyle:'#E69DB8'})
 ]);
 
 /// Slanted bottom segments – aligned to the wall bottoms
@@ -242,11 +243,11 @@ const halfSeg = usableW / 2;
     const collWidth  = boxWidth;
     const collHeight = H*0.2;
     const collX      = (W - collWidth)/2;
-    const collY      = H - collHeight/2;
+    const collY      = Hbottom - collHeight/2;
     const collector = [
-      Bodies.rectangle(collX+collWidth/2, collY+collHeight/2, collWidth, wallThk, { isStatic:true ,fillStyle:'#000' }),
-      Bodies.rectangle(collX+wallThk/2, collY, wallThk, collHeight, { isStatic:true, fillStyle:'#000'  }),
-      Bodies.rectangle(collX+collWidth-wallThk/2, collY, wallThk, collHeight, { isStatic:true , fillStyle:'#000' })
+      Bodies.rectangle(collX+collWidth/2, collY+collHeight/2, collWidth, wallThk, { isStatic:true ,fillStyle:'#E69DB8' }),
+      Bodies.rectangle(collX+wallThk/2, collY, wallThk, collHeight, { isStatic:true, fillStyle:'#E69DB8'  }),
+      Bodies.rectangle(collX+collWidth-wallThk/2, collY, wallThk, collHeight, { isStatic:true , fillStyle:'#E69DB8' })
     ];
     World.add(world,collector);
 
