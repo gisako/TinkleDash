@@ -1,70 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Box Plot with Physics</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-            margin-top: 20px;
-        }
-        #controls {
-            margin: 20px;
-        }
-        #statsInput, #obsInput {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        #statsInput label, #obsInput label {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 14px;
-        }
-        textarea {
-            width: 250px;
-            height: 60px;
-            resize: none;
-        }
-        input[type="number"] {
-            width: 80px;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Box Plot with Physics</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    /* the outer layout */
+    .layout {
+      display: flex;
+      height: 100%;
+    }
+    /* LEFT pane: the canvas container (90%) */
+    #canvas-pane {
+      flex: 0 0 80%;
+      position: relative;
+      background: #ffffff;
+       max-height: 100%;
+    }
+    /* ensure the actual <canvas> inside #canvas-pane 
+       keeps its JS-set size */
+    #canvas-pane canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: auto !important;
+      height: auto !important;
+      max-width: 100%;
+      max-height: 100%;
+    }
+    /* RIGHT pane: controls (10%) */
+    .controls-pane {
+      flex: 0 0 20%;
+      box-sizing: border-box;
+      padding: 20px;
+      overflow-y: auto;
+      background: rgba(255,255,255,0.0);
+      font-family: Arial, sans-serif;
+    }
+    .controls-pane h1 {
+      font-size: 1.1em;
+      margin-top: 0;
+      text-align: left;
+    }
+    #controls {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    #statsInput, #obsInput {
+      display: none; /* toggled by switchMode */
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    #statsInput label,
+    #obsInput label {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+    }
+    textarea {
+      width: 100%;
+      height: 60px;
+      resize: none;
+      box-sizing: border-box;
+    }
+    input[type="number"] {
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>
-    <h1>Interactive Box Plot with Physics</h1>
+  <div class="layout">
+    <!-- LEFT: canvas container -->
+    <div id="canvas-pane"></div>
 
-    <div id="controls">
+    <!-- RIGHT: controls -->
+    <div class="controls-pane">
+      <h1>Interactive Box Plot</h1>
+      <div id="controls">
         <button onclick="switchMode('stats')">Statistical Values</button>
         <button onclick="switchMode('observations')">Observations</button>
-    </div>
-
-    <div id="statsInput" style="display:none;">
+      </div>
+      <div id="statsInput">
         <label>Min<br/><input type="number" id="minVal" value="5"></label>
         <label>Q1<br/><input type="number" id="q1Val" value="15"></label>
         <label>Median<br/><input type="number" id="medianVal" value="25"></label>
         <label>Q3<br/><input type="number" id="q3Val" value="35"></label>
         <label>Max<br/><input type="number" id="maxVal" value="50"></label>
         <button onclick="drawFromStats()">Draw Box Plot</button>
-    </div>
-
-    <div id="obsInput" style="display:none;">
+      </div>
+      <div id="obsInput">
         <label>
-            Observations (comma separated)<br/>
-            <textarea id="observations">5, 7, 8, 12, 15, 18, 21, 25, 28, 30, 35, 38, 40, 42, 50</textarea>
+          Observations<br/>
+          <textarea id="observations">5,7,8,12,15,18,21,25,28,30,35,38,40,42,50</textarea>
         </label>
         <button onclick="drawFromObservations()">Draw Box Plot</button>
+      </div>
     </div>
+  </div>
 
-    <!-- Matter.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-    <!-- Your Custom JS -->
-    <script src="box.js"></script>
+  <!-- Matter.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <script>
+    // Just change the target element here—everything else in your box.js stays the same
+    // before loading your box.js:
+    Matter.Render.create = (function(orig) {
+      return function(options) {
+        options.element = document.getElementById('canvas-pane');
+        return orig(options);
+      }
+    })(Matter.Render.create);
+  </script>
+  <!-- your existing logic: switchMode(), drawFromStats(), etc. -->
+  <script src="box.js"></script>
 </body>
 </html>

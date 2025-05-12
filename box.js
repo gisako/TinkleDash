@@ -28,10 +28,10 @@ function initMatter() {
     Render.run(render);
 
     const walls = [
-        Bodies.rectangle(450, -25, 900, 50, { isStatic: true }),
-        Bodies.rectangle(450, 525, 900, 50, { isStatic: true }),
-        Bodies.rectangle(-25, 250, 50, 500, { isStatic: true }),
-        Bodies.rectangle(925, 250, 50, 500, { isStatic: true })
+        Bodies.rectangle(450, -25, 900, 50, { isStatic: true,fillStyle:'#fff',strokeStyle: 'white' }),
+        Bodies.rectangle(450, 525, 900, 50, { isStatic: true,fillStyle:'#fff' ,strokeStyle: 'white'}),
+        Bodies.rectangle(-25, 250, 50, 500, { isStatic: true ,fillStyle:'#fff',strokeStyle: 'white'}),
+        Bodies.rectangle(925, 250, 50, 500, { isStatic: true,fillStyle:'#fff' ,strokeStyle: 'white'})
     ];
     World.add(world, walls);
 
@@ -197,6 +197,7 @@ function drawCompositeBoxPlot(min, q1, median, q3, max, mean, lowerBound = null,
     World.add(world, boxPlotComposite);
 }
 
+//working
 function drawLegendsAndLabels() {
     const ctx = render.context;
 
