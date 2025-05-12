@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Normal Distribution Visualization</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 20px;
+        }
+        #normalDistInput {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px;
+        }
+        #normalDistInput label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+        }
+        input[type="number"] {
+            width: 80px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Normal Distribution with Composite Bodies</h1>
+
+    <div id="normalDistInput">
+        <label>Mean<br/><input type="number" id="meanVal" value="0"></label>
+        <label>Std Dev<br/><input type="number" id="stdDevVal" value="1"></label>
+        <button onclick="startGaltonBoard()">Draw</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="ND.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Matter.js Example</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Include Matter.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/danfojs@1.2.0/lib/bundle.min.js"></script>
+<h1> Hello World </h1>
+<!-- Include your custom script -->
+<script src="stdnormal.js"></script>
+
+<input type="file" id="csvFileInput" name="csvFileInput">
+    <script>
+            
+        let globalDf;
+
+    document.getElementById("csvFileInput").addEventListener("change", async function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        try {
+          // Read CSV from File object using Danfo.js
+          globalDf = await dfd.readCSV(file);
+
+          // Log the DataFrame to console
+        
+          addBalls();
+        } catch (err) {
+          console.error("Error reading CSV file:", err);
+        }
+      }
+    });
+         
+    </script>
+
+</body>
+</html>

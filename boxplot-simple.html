@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Box Plot Visualization</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 30px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        #controls {
+            margin: 20px;
+        }
+        #statsInput, #obsInput {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        #statsInput label, #obsInput label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+        }
+        textarea {
+            width: 250px;
+            height: 60px;
+            resize: none;
+        }
+        input[type="number"] {
+            width: 80px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Box Plot Visualization</h1>
+
+    <div id="controls">
+        <button onclick="switchMode('stats')">Statistical Values</button>
+        <button onclick="switchMode('observations')">Observations</button>
+    </div>
+
+    <div id="statsInput" style="display:none;">
+        <label>Min<br/><input type="number" id="minVal" value="5"></label>
+        <label>Q1<br/><input type="number" id="q1Val" value="15"></label>
+        <label>Median<br/><input type="number" id="medianVal" value="25"></label>
+        <label>Q3<br/><input type="number" id="q3Val" value="35"></label>
+        <label>Max<br/><input type="number" id="maxVal" value="50"></label>
+        <button onclick="drawFromStats()">Draw Box Plot</button>
+    </div>
+
+    <div id="obsInput" style="display:none;">
+        <label>
+            Observations (comma separated)<br/>
+            <textarea id="observations">5, 7, 8, 12, 15, 18, 21, 25, 28, 30, 35, 38, 40, 42, 50</textarea>
+        </label>
+        <button onclick="drawFromObservations()">Draw Box Plot</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+    <script src="box.js"></script>
+</body>
+</html>

@@ -2,23 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Matter.js Example</title>
-  <style>
-    body {
-      margin: 0;
-    }
-    canvas {
-      display: block;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <h1>Tinkle Dashboard for DataScience Students</h1>
 
-<!-- Include Matter.js from CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <div id="navigation">
+      <button id="prevBtn">← Prev</button>
+      <button id="nextBtn">Next →</button>
+    </div>
 
-<!-- Include your custom script -->
-<script src="tinkledash.js"></script>
+    <div id="gallery">
+      <!-- Each iframe can have a title and description -->
+      <div class="frame-container">
+        <h3 id="frameTitle">Data Wrangling</h3>
+        <!-- <p id="frameDesc">This page shows observations, outliers, nulls, mean and median</p> -->
+        <iframe id="viewer" src="outliers.html" title="Data Wrangling Viewer"></iframe>
+      </div>
+      
+    </div>
 
+    <p class="disclaimer">This is only a learning or simulation page and the calculations are not tested or can lack precision, so do not use for real application scenarios.</p>
+  </div>
+
+  <script>
+    const files = [
+      { src: 'outliers.html', title: 'Data Wrangling', desc: 'This page shows observations, outliers, nulls, mean and median' },
+      { src: 'boxplot.html', title: 'Box Plots', desc: 'This page shows a box plot and its components' },
+      { src: 'scatter.html', title: 'Scatter Plot, Correlation and Linear Regression', desc: 'This page shows scatter plots, correlation and regression principles' },
+      { src: 'normalorg.html', title: 'Normal Distribution', desc: 'This page shows normal distribution concepts' }
+    ];
+    let current = 0;
+    const viewer = document.getElementById('viewer');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const frameTitle = document.getElementById('frameTitle');
+    const frameDesc = document.getElementById('frameDesc');
+
+    function updateViewer() {
+      const file = files[current];
+      viewer.src = file.src;
+      frameTitle.textContent = file.title;
+    //  frameDesc.textContent = file.desc;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === files.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (current > 0) { current--; updateViewer(); }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (current < files.length - 1) { current++; updateViewer(); }
+    });
+
+    if (files.length) {
+      updateViewer();
+    } else {
+      document.querySelector('.frame-container').remove();
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+    }
+  </script>
 </body>
 </html>
